@@ -2,6 +2,8 @@
 -- found (e.g. lgi). If LuaRocks is not installed, do nothing.
 pcall(require, "luarocks.loader")
 
+local revelation = require("revelation")
+
 -- Standard awesome library
 local gears = require("gears")
 local awful = require("awful")
@@ -53,6 +55,7 @@ end
 -- Themes define colours, icons, font and wallpapers.
 --beautiful.init(gears.filesystem.get_themes_dir() .. "default/theme.lua")
 beautiful.init("/home/abhishek/.config/awesome/default/theme.lua")
+revelation.init()
 
 -- This is used later as the default terminal and editor to run.
 terminal = "kitty"
@@ -347,6 +350,8 @@ globalkeys = gears.table.join(
 
 	-- Prompt
 
+	awful.key({ modkey }, "g", revelation),
+
 	awful.key({ modkey }, "r", function()
 		-- awful.screen.focused().mypromptbox:run()
 		awful.util.spawn("dmenu_run")
@@ -606,14 +611,19 @@ end)
 client.connect_signal("unfocus", function(c)
 	c.border_color = beautiful.border_normal
 end)
--- }}}
 
 --awful.spawn.with_shell(“picom”)
+-- }}}
 --awful.spawn.with_shell(“nitrogen --restore”)
 
 -- Autostart Application
 -- awful.spawn.with_shell("compton")
 awful.spawn.with_shell("picom")
-awful.spawn.with_shell("nitrogen --restore")
+awful.spawn.with_shell("kmix")
+awful.spawn.with_shell("nm-applet")
+awful.spawn.with_shell("gammy")
+-- awful.spawn.with_shell("nitrogen --restore")
+awful.spawn.with_shell("/home/abhishek/.config/polybar/launch.sh")
+awful.spawn.with_shell("/home/abhishek/.config/polybar/get_spotify_status.sh")
 
 beautiful.useless_gap = 10
